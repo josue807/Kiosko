@@ -1,0 +1,44 @@
+      div.appendChild(label);
+      div.appendChild(select);
+      menuDiv.appendChild(div);
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const pedido = { nombre, items: {} };
+
+      for (let producto in productos) {
+        const cantidad = parseInt(document.getElementById(`cant-${producto}`).value);
+        if (cantidad > 0) {
+          pedido.items[producto] = cantidad;
+        }
+      }
+
+      const res = await fetch("/pedido", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pedido)
+      });
+
+      const data = await res.json();
+
+      if (data.exito) {
+        confirmacionDiv.className = "confirmacion";
+        confirmacionDiv.innerHTML = `
+          <h3>✅ Pedido enviado correctamente</h3>
+          <p><strong>Nombre:</strong> ${nombre}</p>
+          <ul>
+            ${Object.entries(data.pedido).map(([producto, info]) =>
+              `<li>${producto}: ${info.cantidad} x ${info.precio} € = ${(info.total).toFixed(2)} €</li>`
+            ).join("")}
+          </ul>
+          <p><strong>Total:</strong> ${data.total.toFixed(2)} €</p>
+        `;
+      } else {
+        alert(data.mensaje);
+      }
+    });
+  </script>
+</body>
+</html>
