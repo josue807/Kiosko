@@ -1,0 +1,30 @@
+    const seleccionadosUl = document.getElementById("seleccionados");
+    const form = document.getElementById("pedido-form");
+    const confirmacionDiv = document.getElementById("confirmacion");
+
+    function actualizarSeleccionados() {
+      seleccionadosUl.innerHTML = "";
+      let total = 0;
+      for (let producto in productos) {
+        const cantidad = parseInt(document.getElementById(`cant-${producto}`).value);
+        if (cantidad > 0) {
+          const precio = productos[producto];
+          total += precio * cantidad;
+          const li = document.createElement("li");
+          li.textContent = `${producto}: ${cantidad} x ${precio} € = ${(cantidad * precio).toFixed(2)} €`;
+          seleccionadosUl.appendChild(li);
+        }
+      }
+      if (total > 0) {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>Total: ${total.toFixed(2)} €</strong>`;
+        seleccionadosUl.appendChild(li);
+      }
+    }
+
+    for (let producto in productos) {
+      const div = document.createElement("div");
+      div.className = "producto";
+
+      const label = document.createElement("label");
+      label.textContent = `${producto} (${productos[producto]} €):`;
