@@ -1,0 +1,36 @@
+  margin: 0.5rem 0;
+}
+
+select {
+  padding: 0.25rem;
+  font-size: 1rem;
+}
+
+button {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #388e3c;
+}
+
+.confirmacion {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #d9fdd3;
+  border: 1px solid #a5d6a7;
+  border-radius: 1rem;
+}
+
+.oculto {
+  display: none;
+}
